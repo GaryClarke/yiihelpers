@@ -1,4 +1,5 @@
 <?php
+use _generated\ApiTesterActions;
 
 
 /**
@@ -18,6 +19,5 @@
 */
 class FunctionalTester extends \Codeception\Actor
 {
-    use _generated\FunctionalTesterActions;
-
+    use _generated\FunctionalTesterActions, ApiTesterActions;
 }

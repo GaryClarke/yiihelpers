@@ -3,11 +3,11 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Country;
-use app\models\CountrySearch;
 use yii\web\Controller;
-use yii\web\NotFoundHttpException;
+use app\models\Country;
 use yii\filters\VerbFilter;
+use app\models\CountrySearch;
+use yii\web\NotFoundHttpException;
 
 /**
  * CountryController implements the CRUD actions for Country model.
@@ -42,7 +42,9 @@ class CountryController extends Controller
      */
     public function actionIndex()
     {
-        $country = Country::findOrDie(['code' => 'IE']);
+        $country = Country::findOrDie(['code' => 'BR']);
+
+        dd(app()->log);
 
         $searchModel = new CountrySearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -72,9 +74,12 @@ class CountryController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Country();
+        $params = app()->getRequest()->getBodyParams();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        $model = Country::findOrDie(['code' => 'AU']);
+
+        if ($model->load(Yii::$app->request->post())) {
+
             return $this->redirect(['view', 'id' => $model->code]);
         }
 
